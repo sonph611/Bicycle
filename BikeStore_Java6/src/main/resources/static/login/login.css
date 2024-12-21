@@ -1,0 +1,80 @@
+body {
+	background-image:
+		url('https://cdn.tgdd.vn/Files/2021/07/15/1368386/huong-dan-cach-chon-size-xe-dap-phu-hop-voi-chieu--15.jpg');
+	background-size: cover;
+	background-position: center;
+	background-repeat: no-repeat;
+	background-attachment: fixed;
+	background-color: rgba(0, 0, 0, 0 .5); 
+	height: 100vh;
+    margin: 0; 
+    display: flex; 
+    justify-content: center; 
+    align-items: center;
+	
+}
+.box{
+    display: flex;
+    justify-content: center;
+    text-align: center;
+    width: 100%;
+}
+.box-content{
+    width: 30%;
+    background-color: white;
+    box-shadow: 1px 1px 20px 0px;
+    border-radius: 10px;
+    background-color: rgba(0, 0, 0, 0.5); 
+}
+
+h1 {
+    font-size: 32px;
+    color: #ff5722;
+    font-weight: bold;
+}
+
+  .QuenMK{
+    text-decoration: none;
+    color: #ff5722;
+  }
+  .DangKy{
+    text-decoration: none;
+    color: #ff5722;
+  }
+  .text-orange {
+    color: #ff5722;
+}
+
+.text-center {
+    text-align: center;
+}
+
+.mt-2 {
+    margin-top: 0.5rem !important;
+}
+
+.text-white {
+    color: #fff;
+}
+  
+.btn-primary {
+    width: 100%;
+    border-radius: 10px;
+    padding: 10px;
+    font-weight: bold;
+    background-color: #ff5722;
+    border-color: #ff5722;
+    font-size: 16px;
+}
+
+.btn-primary:hover {
+    background-color: #f4511e;
+    border-color: #f4511e;
+}
+
+.btn-primary:hover, .btn-primary:focus {
+    transform: translateY(-2px);
+    box-shadow: 0px 5px 10px 0px rgba(0, 0, 0, 0.1);
+}
+
+

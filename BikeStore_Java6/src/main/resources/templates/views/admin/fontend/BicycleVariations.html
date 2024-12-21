@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" th:replace="~{/admin/fontend/index :: dynamic(~{::body})}">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Quản lý biến thể</title>
+	<!-- Bootstrap CSS -->
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+		integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+
+	<link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+	<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+	<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
+
+	<!-- Custom styles -->
+	<style>
+		/* General Styles */
+		body {
+			font-family: 'Montserrat', sans-serif;
+			background-color: #f8f9fa;
+		}
+
+		/* Navbar Styles */
+		.navbar {
+			background-color: #ffffff;
+			box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+		}
+
+		.navbar-brand,
+		.navbar-nav .nav-link {
+			color: #555555;
+			transition: color 0.3s ease;
+		}
+
+		.navbar-brand:hover,
+		.navbar-nav .nav-link:hover {
+			color: #007bff;
+		}
+
+		.sidebar .nav-link {
+			color: #ecf0f1;
+			transition: color 0.3s ease;
+		}
+
+		.sidebar .nav-link:hover {
+			color: #3498db;
+		}
+
+		.sidebar .logo img {
+			max-width: 120px;
+			transition: max-width 0.3s ease;
+		}
+
+		.sidebar .logo img:hover {
+			max-width: 130px;
+		}
+
+		.table-hover tbody tr:hover {
+			background-color: #f1f1f1;
+		}
+
+		.pagination .page-link {
+			color: #555555;
+			transition: background-color 0.3s ease, color 0.3s ease;
+		}
+
+		.pagination .page-link:hover {
+			background-color: #007bff;
+			color: #ffffff;
+		}
+
+		.alert {
+			border-radius: 8px;
+		}
+
+		#errorMessage {
+			background-color: #f8d7da;
+			border: 1px solid #f5c6cb;
+			color: #721c24;
+			padding: 10px;
+			margin: 10px 0;
+			opacity: 1;
+			transition: opacity 1s ease-in-out;
+		}
+
+		.color-option {
+			padding: 8px 16px;
+			border-radius: 8px;
+			cursor: pointer;
+			transition: background-color 0.3s ease;
+		}
+
+		.color-option:hover {
+			background-color: #f0f0f0;
+		}
+
+		.btn {
+			transition: background-color 0.3s ease, color 0.3s ease;
+			border-radius: 8px;
+		}
+
+		/* Fade-out effect for error message */
+		.fade-out {
+			opacity: 0;
+			transition: opacity 1s ease-in-out;
+		}
+	</style>
+</head>
+
+<body>
+	<main class="mt-3">
+		<div th:if="${param.message != null}">
+			<div id="errorMessage" class="alert alert-danger text-center" th:text="${param.message}"></div>
+		</div>
+
+		<h2>Quản lý danh mục</h2>
+		<div class="row">
+			<div class="col-md-4">
+				<!-- Colors Section -->
+				<div class="card p-3 mb-3">
+					<form th:action="@{/admin/bicycle-variations/create}" method="post">
+						<div class="input-group">
+							<input type="text" id="nameColor" name="nameColor" class="form-control"
+								placeholder="Nhập tên màu" required>
+
+							<div class="input-group-append">
+								<button type="submit" class="btn btn-outline-secondary" id="button-addon1">Thêm màu
+									sắc</button>
+							</div>
+						</div>
+					</form>
+				</div>
+				<div class="card p-3 mb-3" style="height: 350px;">
+					<table class="table table-striped">
+						<thead>
+							<tr>
+								<th>ID</th>
+								<th width="50%" style="padding-left: 60px">Màu sắc</th>
+								<th>Hành động</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr th:each="color : ${colors.content}">
+								<td th:text="${color.id}"></td>
+								<td style="text-align: center;" th:text="${color.nameColor}"></td>
+								<td class="mt-2"><a th:href="@{/admin/bicycle-variations/remove/{id}(id=${color.id})}"
+										class="btn btn-danger" onclick="return confirmDelete()">Xóa
+										màu</a></td>
+							</tr>
+						</tbody>
+					</table>
+					<nav>
+						<ul class="pagination justify-content-center">
+							<li th:if="${colors.totalPages > 0}"
+								th:each="i : ${#numbers.sequence(0, colors.totalPages - 1)}"
+								th:classappend="${i == currentPageColor ? 'active' : ''}">
+								<a class="page-link"
+									th:href="@{/admin/bicycle-variations(pageColor=${i}, pageSize=${currentPageSize}, pageCategory=${currentPageCategory})}"
+									th:text="${i + 1}">1</a>
+							</li>
+						</ul>
+					</nav>
+
+				</div>
+			</div>
+			<div class="col-md-4">
+				<!-- Sizes Section -->
+				<div class="card p-3 mb-3">
+					<form th:action="@{/admin/bicycle-variations/create-size}" method="post">
+						<div class="input-group">
+							<input type="text" id="bikeSize" name="bikeSize" class="form-control"
+								placeholder="Nhập kích cỡ mới" required>
+							<div class="input-group-append">
+								<button type="submit" class="btn btn-outline-secondary" id="button-addon1">Thêm kích cỡ
+									mới</button>
+							</div>
+						</div>
+					</form>
+				</div>
+				<div class="card p-3 mb-3" style="height: 350px;">
+					<table class="table table-striped">
+						<thead>
+							<tr>
+								<th>ID</th>
+								<th width="50%" style="padding-left: 60px">Kích cỡ</th>
+								<th>Hành động</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr th:each="size : ${sizes.content}">
+								<td th:text="${size.id}"></td>
+								<td style="text-align: center;" th:text="${size.nameSize}"></td>
+								<td class="mt-2"><a
+										th:href="@{/admin/bicycle-variations/remove-size/{id}(id=${size.id})}"
+										class="btn btn-danger" onclick="return confirmDelete()">Xóa
+										kích cỡ</a></td>
+							</tr>
+						</tbody>
+					</table>
+					<nav>
+						<ul class="pagination justify-content-center">
+							<li th:if="${sizes.totalPages > 0}"
+								th:each="i : ${#numbers.sequence(0, sizes.totalPages - 1)}"
+								th:classappend="${i == currentPageSize ? 'active' : ''}"><a class="page-link"
+									th:href="@{/admin/bicycle-variations(pageColor=${currentPageColor}, pageSize=${i}, pageCategory=${currentPageCategory})}"
+									th:text="${i + 1}">1</a></li>
+						</ul>
+					</nav>
+
+				</div>
+			</div>
+			<div class="col-md-4">
+				<!-- Categories Section -->
+				<div class="card p-3 mb-3">
+					<form th:action="@{/admin/bicycle-variations/create-type}" method="post">
+						<div class="input-group">
+							<input type="text" id="bikeType" name="bikeType" class="form-control"
+								placeholder="Nhập loại xe mới" required>
+							<div class="input-group-append">
+								<button type="submit" class="btn btn-outline-secondary" id="button-addon1">Thêm loại xe
+									mới</button>
+							</div>
+						</div>
+					</form>
+				</div>
+				<div class="card p-3 mb-3" style="height: 350px;">
+					<table class="table table-striped">
+						<thead>
+							<tr>
+								<th>ID</th>
+								<th width="50%" style="padding-left: 60px">Loại xe</th>
+								<th>Hành động</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr th:each="type : ${categories.content}">
+								<td th:text="${type.id}"></td>
+								<td style="text-align: center;" th:text="${type.type}"></td>
+								<td class="mt-2"><a
+										th:href="@{/admin/bicycle-variations/remove-type/{id}(id=${type.id})}"
+										class="btn btn-danger" onclick="return confirmDelete()">Xóa
+										loại xe</a></td>
+							</tr>
+						</tbody>
+					</table>
+					<nav>
+						<ul class="pagination justify-content-center">
+							<li th:if="${categories.totalPages > 0}"
+								th:each="i : ${#numbers.sequence(0, categories.totalPages - 1)}"
+								th:classappend="${i == currentPageCategory ? 'active' : ''}">
+								<a class="page-link"
+									th:href="@{/admin/bicycle-variations(pageColor=${currentPageColor}, pageSize=${currentPageSize}, pageCategory=${i})}"
+									th:text="${i + 1}">1</a>
+							</li>
+						</ul>
+					</nav>
+
+				</div>
+			</div>
+		</div>
+	</main>
+
+	<!-- Bootstrap JS and dependencies -->
+	<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+		integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+		crossorigin="anonymous"></script>
+	<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"
+		integrity="sha384-g/dV0jWgw5vUJ2Zp3B6CkN5My+9nFtz+6DqxFAdZlE2VXDZIYgRIq0pNk/Fi2MzI"
+		crossorigin="anonymous"></script>
+	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"
+		integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8sh+VyCExlHvMYXPcW+3g2V4fFg6GzFHSf8Nv2"
+		crossorigin="anonymous"></script>
+
+	<!-- Custom script for confirmation dialog -->
+	<script>
+		function confirmDelete() {
+			return confirm('Bạn có chắc chắn muốn xóa không?');
+		}
+	</script>
+</body>
+
+</html>

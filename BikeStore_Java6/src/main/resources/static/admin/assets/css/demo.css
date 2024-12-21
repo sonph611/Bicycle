@@ -1,0 +1,489 @@
+/* General Styles */
+body, html {
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif;
+}
+
+/* Typography */
+.typography-line {
+    padding-left: 15%;
+    margin-bottom: 35px;
+    position: relative;
+    display: block;
+    width: 100%;
+}
+
+.typography-line span {
+    position: absolute;
+    bottom: 10px;
+    left: 5px;
+    width: 260px;
+    color: #9A9A9A;
+    font-size: 14px;
+    line-height: 13px;
+    font-weight: 400;
+    text-transform: none;
+}
+
+/* Navbar */
+#navbar-full .navbar {
+    border-radius: 0 !important;
+    margin-bottom: 15px;
+    z-index: 2;
+}
+
+#menu-dropdown .navbar {
+    border-radius: 3px;
+}
+
+/* Map */
+#map {
+    position: relative;
+    width: 100%;
+    height: 100%;
+}
+
+/* Buttons */
+.tim-white-buttons {
+    background-color: #777777;
+}
+
+#buttons .btn,
+#javascriptComponents .btn {
+    margin: 0 0 10px;
+}
+
+#buttons-row .btn {
+    margin-bottom: 10px;
+}
+
+/* Layout Spacing */
+.space-50 {
+    height: 50px;
+    display: block;
+}
+
+.space-70 {
+    height: 70px;
+    display: block;
+}
+
+.space-100 {
+    height: 100px;
+    display: block;
+    width: 100%;
+}
+
+.space-110 {
+    height: 110px;
+    display: block;
+}
+
+.space-130 {
+    height: 130px;
+    display: block;
+}
+
+.tim-row {
+    padding-top: 60px;
+}
+
+.tim-row h3 {
+    margin-top: 0;
+}
+
+/* Fixed Plugin */
+.fixed-plugin {
+    position: fixed;
+    top: 200px;
+    right: 0;
+    width: 64px;
+    background: linear-gradient(135deg, #72EDF2 10%, #5151E5 100%);
+    z-index: 1031;
+    border-radius: 8px 0 0 8px;
+    text-align: center;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.fixed-plugin .fa-cog {
+    color: #FFFFFF;
+    padding: 10px;
+    border-radius: 0 0 6px 6px;
+    width: auto;
+}
+
+.fixed-plugin .dropdown-menu {
+    right: 80px;
+    left: auto;
+    width: 290px;
+    border-radius: 0.1875rem;
+    padding: 0 10px;
+    background: #FFFFFF;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.fixed-plugin .dropdown-menu:after,
+.fixed-plugin .dropdown-menu:before {
+    right: 10px;
+    margin-left: auto;
+    left: auto;
+}
+
+.fixed-plugin .fa-circle-thin {
+    color: #FFFFFF;
+}
+
+.fixed-plugin .active .fa-circle-thin {
+    color: #00bbff;
+}
+
+.fixed-plugin .dropdown-menu>.active>a,
+.fixed-plugin .dropdown-menu>.active>a:hover,
+.fixed-plugin .dropdown-menu>.active>a:focus {
+    color: #777777;
+    text-align: center;
+}
+
+.fixed-plugin img {
+    border-radius: 0;
+    width: 100%;
+    height: 100px;
+    margin: 0 auto;
+}
+
+.fixed-plugin .dropdown-menu li>a:hover,
+.fixed-plugin .dropdown-menu li>a:focus {
+    box-shadow: none;
+}
+
+.fixed-plugin .badge {
+    border: 3px solid #FFFFFF;
+    border-radius: 50%;
+    cursor: pointer;
+    display: inline-block;
+    height: 23px;
+    margin-right: 5px;
+    position: relative;
+    width: 23px;
+}
+
+.fixed-plugin .badge.active,
+.fixed-plugin .badge:hover {
+    border-color: #00bbff;
+}
+
+.fixed-plugin .badge-black {
+    background-color: #777;
+}
+
+.fixed-plugin .badge-azure {
+    background-color: #2CA8FF;
+}
+
+.fixed-plugin .badge-green {
+    background-color: #18ce0f;
+}
+
+.fixed-plugin .badge-orange {
+    background-color: #f96332;
+}
+
+.fixed-plugin .badge-yellow {
+    background-color: #FFB236;
+}
+
+.fixed-plugin .badge-red {
+    background-color: #FF3636;
+}
+
+.fixed-plugin .badge-purple {
+    background-color: rgb(255, 255, 255);
+}
+
+.fixed-plugin h5 {
+    font-size: 14px;
+    margin: 10px;
+}
+
+.fixed-plugin .dropdown-menu li {
+    display: block;
+    padding: 18px 2px;
+    width: 25%;
+    float: left;
+}
+
+.fixed-plugin li.adjustments-line,
+.fixed-plugin li.header-title,
+.fixed-plugin li.button-container {
+    width: 100%;
+    height: 50px;
+    min-height: inherit;
+}
+
+.fixed-plugin li.button-container {
+    height: auto;
+}
+
+.fixed-plugin li.button-container div {
+    margin-bottom: 5px;
+}
+
+.fixed-plugin #sharrreTitle {
+    text-align: center;
+    padding: 10px 0;
+    height: 50px;
+}
+
+.fixed-plugin li.header-title {
+    height: 30px;
+    line-height: 25px;
+    font-size: 12px;
+    font-weight: 600;
+    text-transform: uppercase;
+    color: #FFFFFF;
+}
+
+.fixed-plugin .adjustments-line p {
+    float: left;
+    display: inline-block;
+    margin-bottom: 0;
+    font-size: 1em;
+    color: #3C4858;
+}
+
+.fixed-plugin .adjustments-line a .badge-colors {
+    position: relative;
+    top: -2px;
+}
+
+.fixed-plugin .adjustments-line .togglebutton {
+    float: right;
+}
+
+.fixed-plugin .adjustments-line .togglebutton .toggle {
+    margin-right: 0;
+}
+
+.fixed-plugin .dropdown-menu>li.adjustments-line>a {
+    padding-right: 0;
+    padding-left: 0;
+    margin: 0;
+}
+
+.fixed-plugin .dropdown-menu>li>a.img-holder {
+    font-size: 16px;
+    text-align: center;
+    border-radius: 10px;
+    background-color: #FFF;
+    border: 3px solid #FFF;
+    padding-left: 0;
+    padding-right: 0;
+    opacity: 1;
+    cursor: pointer;
+    display: block;
+    max-height: 100px;
+    overflow: hidden;
+    padding: 0;
+}
+
+.fixed-plugin .dropdown-menu>li>a.switch-trigger:hover,
+.fixed-plugin .dropdown-menu>li>a.switch-trigger:focus {
+    background-color: transparent;
+}
+
+.fixed-plugin .dropdown-menu>li:hover>a.img-holder,
+.fixed-plugin .dropdown-menu>li:focus>a.img-holder {
+    border-color: rgba(0, 187, 255, 0.53);
+}
+
+.fixed-plugin .dropdown-menu>.active>a.img-holder,
+.fixed-plugin .dropdown-menu>.active>a.img-holder {
+    border-color: #00bbff;
+    background-color: #FFFFFF;
+}
+
+.fixed-plugin .dropdown-menu>li>a img {
+    margin-top: auto;
+}
+
+.fixed-plugin .btn-social {
+    width: 50%;
+    display: block;
+    width: 48%;
+    float: left;
+    font-weight: 600;
+}
+
+.fixed-plugin .btn-social i {
+    margin-right: 5px;
+}
+
+.fixed-plugin .btn-social:first-child {
+    margin-right: 2%;
+}
+
+.fixed-plugin .adjustments-line a:hover,
+.fixed-plugin .adjustments-line a:focus,
+.fixed-plugin .adjustments-line a {
+    color: transparent;
+}
+
+.fixed-plugin .dropdown .dropdown-menu {
+    -webkit-transform: translateY(-15%);
+    -moz-transform: translateY(-15%);
+    -o-transform: translateY(-15%);
+    -ms-transform: translateY(-15%);
+    transform: translateY(-15%);
+    top: 27px;
+    opacity: 0;
+    transform-origin: 0 0;
+}
+
+.fixed-plugin .dropdown.show .dropdown-menu {
+    opacity: 1;
+    -webkit-transform: translateY(-13%);
+    -moz-transform: translateY(-13%);
+    -o-transform: translateY(-13%);
+    -ms-transform: translateY(-13%);
+    transform: translateY(-13%);
+    transform-origin: 0 0;
+}
+
+.fixed-plugin .dropdown-menu:before,
+.fixed-plugin .dropdown-menu:after {
+    content: "";
+    display: inline-block;
+    position: absolute;
+    top: 65px;
+    width: 16px;
+    transform: translateY(-50%);
+    -webkit-transform: translateY(-50%);
+    -moz-transform: translateY(-50%);
+}
+
+.fixed-plugin .dropdown-menu:before {
+    border-bottom: 16px solid rgba(0, 0, 0, 0);
+    border-left: 16px solid rgba(0, 0, 0, 0.2);
+    border-top: 16px solid rgba(0, 0, 0, 0);
+    right: -16px;
+}
+
+.fixed-plugin .dropdown-menu:after {
+    border-bottom: 16px solid rgba(0, 0, 0, 0);
+    border-left: 16px solid #fff;
+    border-top: 16px solid rgba(0, 0, 0, 0);
+    right: -15px;
+}
+
+.wrapper-full-page~.fixed-plugin .dropdown.open .dropdown-menu {
+    -webkit-transform: translateY(-17%);
+    -moz-transform: translateY(-17%);
+    -o-transform: translateY(-17%);
+    -ms-transform: translateY(-17%);
+    transform: translateY(-17%);
+}
+
+/* Responsive Design */
+@media (max-width: 991px) {
+    .fixed-plugin .dropdown-menu {
+        right: 10px;
+        left: auto;
+        width: 70%;
+    }
+}
+
+@media (max-width: 767px) {
+    .fixed-plugin {
+        right: 10px;
+        left: auto;
+        width: 54px;
+    }
+    .fixed-plugin .dropdown-menu {
+        right: 70px;
+        left: auto;
+        width: 180px;
+    }
+}
+
+
+
+
+/* Thanh điều hướng */
+.navbar {
+    background-color: #ffffff; /* Màu nền của thanh điều hướng */
+    min-height: 70px; /* Độ cao tối thiểu */
+    border-bottom: 1px solid #dee2e6; /* Viền dưới */
+}
+
+/* Thanh logo và biểu tượng mở rộng */
+.navbar-brand,
+.navbar-toggler-icon {
+    color: #007bff; /* Màu chữ và biểu tượng mở rộng */
+}
+
+/* Ô tìm kiếm */
+.form-control {
+    color: #000000; /* Màu chữ trong ô tìm kiếm */
+    background-color: #ffffff; /* Màu nền của ô tìm kiếm */
+}
+
+/* Nút tìm kiếm */
+.btn-outline-success {
+    color: #007bff; /* Màu chữ của nút */
+    border-color: #007bff; /* Màu viền của nút */
+}
+
+/* Thanh bên */
+.sidebar {
+    background-color: #f8f9fa; /* Màu nền của thanh bên */
+    width: 250px; /* Độ rộng */
+    height: 100vh; /* Chiều cao */
+    position: fixed; /* Cố định vị trí */
+    top: 0; /* Phía trên */
+    left: 0; /* Phía trái */
+    overflow-y: auto; /* Cuộn nếu cần */
+}
+
+/* Liên kết trong thanh bên */
+.sidebar .nav-link {
+    color: #000000; /* Màu chữ của liên kết */
+    margin: 10px; /* Khoảng cách */
+    padding: 10px 20px; /* Kích thước */
+    border-radius: 4px; /* Bo góc */
+}
+
+/* Hiệu ứng khi rê chuột qua liên kết */
+.sidebar .nav-link:hover {
+    background-color: #dee2e6; /* Màu nền khi rê chuột qua */
+    color: #000000; /* Màu chữ khi rê chuột qua */
+}
+
+/* Liên kết được chọn trong thanh bên */
+.sidebar .nav-link.active {
+    background-color: #007bff; /* Màu nền khi được chọn */
+    color: #ffffff !important; /* Màu chữ khi được chọn */
+}
+
+/* Logo trong thanh bên */
+.sidebar .logo {
+    padding: 20px; /* Khoảng cách với lề */
+    background-color: #ffffff; /* Màu nền của logo */
+    text-align: center; /* Canh giữa */
+}
+
+/* Hình ảnh trong logo */
+.sidebar .logo img {
+    width: 55px; /* Kích thước của hình ảnh */
+}
+
+/* Phần nội dung chính */
+.main-panel {
+    margin-left: 250px; /* Lề trái */
+    padding: 20px; /* Khoảng cách với lề */
+}
+
+/* Khối chứa */
+.container {
+    margin-top: 50px; /* Khoảng cách với phần trên */
+}

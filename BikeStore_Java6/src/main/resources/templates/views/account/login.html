@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Đăng nhập</title>
+<link
+	href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
+	rel="stylesheet"
+	integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
+	crossorigin="anonymous">
+<script
+	src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+	integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+	crossorigin="anonymous"></script>
+<link rel="stylesheet"
+	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+	integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A=="
+	crossorigin="anonymous" referrerpolicy="no-referrer" />
+<link rel="stylesheet"
+	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+<link rel="stylesheet"
+	href="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.css" />
+<link th:href="@{/login/login.css}" rel="stylesheet" />
+
+</head>
+<body>
+	<div class="box">
+		<div class="box-content mt-3 p-3">
+			<div th:if="${not #strings.isEmpty(security)}"
+				class="alert alert-success w-100 text-center" role="alert">
+				<span th:text="${security}"></span>
+			</div>
+			<h1>ĐĂNG NHẬP</h1>
+			<div class="line-box">
+				<div class="line"></div>
+			</div>
+			<form th:action="@{/login}" method="post" class="mt-3">
+				<form th:action="@{/login}" method="post" class="mt-3">
+					<div class="mb-3">
+						<input type="text" class="form-control" id="emailOrUsername"
+							placeholder="Email/tên đăng nhập" name="emailOrUsername" required />
+					</div>
+					<div class="mb-3">
+						<input type="password" class="form-control" id="InputPassword"
+							placeholder="Mật khẩu" name="password" />
+					
+					</div>
+					<button type="submit" class="btn btn-primary btn-Dangky mb-3">Đăng
+						Nhập</button>
+					<!-- HTML -->
+					<a href="/oauth2/authorization/facebook" 
+						class="btn btn-warning btn-facebook">Đăng nhập bằng Facebook</a> <a
+						href="/oauth2/authorization/google"
+						class="btn btn-danger btn-google">Đăng nhập bằng Google</a>
+
+				</form>
+		</div>
+	</div>
+	<script
+		src="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.js"></script>
+	<script
+		src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
+		integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r"
+		crossorigin="anonymous"></script>
+	<script src="/views/user/js/main.js"></script>
+</body>
+</html>

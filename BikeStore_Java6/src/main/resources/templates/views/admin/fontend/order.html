@@ -1,0 +1,428 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	th:replace="~{/admin/fontend/index :: dynamic(~{::body})}">
+<head>
+<meta charset="UTF-8">
+<title>Quản lí đơn hàng</title>
+<link
+	href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+	rel="stylesheet"
+	integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH"
+	crossorigin="anonymous">
+<script
+	src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+	integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+	crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<style>
+.ellipsis {
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	max-width: 200px; /* Adjust this value as needed */
+}
+</style>
+</head>
+<body>
+	<div class="mx-2">
+		<h2 class="mb-4 mt-4">Quản lí đơn hàng</h2>
+		<ul class="nav nav-tabs" role="tablist">
+			<li class="nav-item"><a class="nav-link"
+				th:classappend="${'product-edition' == activeTab ? 'active' : ''}"
+				id="product-edition-tab" data-bs-toggle="tab"
+				href="#product-edition"
+				aria-selected="${'product-edition' == activeTab}">Danh sách đơn
+					hàng</a></li>
+			<li class="nav-item"><a class="nav-link"
+				th:classappend="${'product-list' == activeTab ? 'active' : ''}"
+				id="product-list-tab" data-bs-toggle="tab" href="#product-list"
+				aria-selected="${'product-list' == activeTab}">Thông tin đơn
+					hàng</a></li>
+		</ul>
+
+		<div class="tab-content mt-2">
+			<div class="tab-pane fade"
+				th:classappend="${'product-edition' == activeTab ? 'show active' : ''}"
+				id="product-edition" role="tabpanel"
+				aria-labelledby="product-edition-tab">
+				<div class="row">
+					<div class="col-md-9">
+						<form class="d-flex justify-content-end w-100 mb-3"
+							th:action="@{/admin/order}" method="get">
+							<input type="text"
+								class="form-control me-2 d-flex justify-content-end w-25"
+								name="key" onblur="this.form.submit()"
+								placeholder="Tìm mã đơn hàng...." />
+						</form>
+					</div>
+					<div class="col-md-3">
+						<form class="d-flex justify-content-end w-100 mb-3"
+							th:action="@{/admin/order}" method="get">
+							<select class="form-control me-2 d-flex justify-content-end"
+								name="nameStatus" onchange="this.form.submit()">
+								<th:block th:each="item : ${listStatus}">
+									<option th:value="${item.nameStatus}"
+										th:text="${item.nameStatus}"
+										th:selected="${nameStatus == item.nameStatus}"></option>
+								</th:block>
+							</select>
+						</form>
+					</div>
+				</div>
+				<table class="table table-bordered">
+					<thead>
+						<tr>
+							<th>Id</th>
+							<th>Ngày đặt hàng</th>
+							<th>Người đặt hàng</th>
+							<th>Tổng tiền</th>
+							<th>Thanh toán</th>
+							<th>Số điện thoại</th>
+							<th>Trạng thái</th>
+							<th>Hành động</th>
+						</tr>
+					</thead>
+					<tbody>
+						<th:block th:each="item1 : ${listOrder}">
+							<tr>
+								<td th:text="${item1[0]}"></td>
+								<td th:text="${#dates.format(item1[1], 'dd/MM/yyyy')}"></td>
+								<td th:text="${item1[2]}"></td>
+								<td><span th:text="${item1[3]}" class="price"></span>đ</td>
+								<td th:text="${item1[4]}"></td>
+								<td th:text="${item1[5]}"></td>
+								<td th:text="${item1[6]}"></td>
+								<td><th:block
+										th:if="${#strings.toLowerCase(item1[6]) == 'đang xử lý' or #strings.toLowerCase(item1[6]) == 'chờ xác nhận'}">
+
+										<!-- Xác nhận đơn hàng -->
+										<th:block
+											th:if="${#strings.toLowerCase(item1[6]) == 'chờ xác nhận'}">
+											<a href="javascript:void(0);"
+												th:attr="data-url=@{/admin/order/success/{id}(id=${item1[0]})}"
+												onclick="confirmAction(this.getAttribute('data-url'))"
+												class="btn btn-success">Xác nhận</a>
+										</th:block>
+
+										<!-- Chuyển sang trạng thái vận chuyển -->
+										<th:block
+											th:if="${#strings.toLowerCase(item1[6]) == 'đang xử lý'}">
+											<a href="javascript:void(0);"
+												th:attr="data-url=@{/admin/order/success/{id}?nameStatusfind=dvc(id=${item1[0]})}"
+												onclick="confirmAction(this.getAttribute('data-url'))"
+												class="btn btn-success">Vận chuyển</a>
+										</th:block>
+
+										<!-- Hủy đơn hàng (chỉ admin) -->
+										<th:block th:if="${#strings.toLowerCase(role) == 'admin'}">
+											<button type="button" class="btn btn-danger"
+												data-bs-toggle="modal" data-bs-target="#cancelModal"
+												th:onclick="'setOrderId(' + ${item1[0]} + ')'">Hủy
+												đơn</button>
+										</th:block>
+									</th:block> <!-- Đã giao hàng --> <th:block
+										th:if="${#strings.toLowerCase(item1[6]) == 'đang vận chuyển'}">
+										<a href="javascript:void(0);"
+											th:attr="data-url=@{/admin/order/success/{id}?nameStatusfind=dgh(id=${item1[0]})}"
+											onclick="confirmAction(this.getAttribute('data-url'))"
+											class="btn btn-success">Đã giao hàng</a>
+									</th:block> <!-- Chi tiết đơn hàng --> <a
+									th:href="@{'/admin/order/edit/' + ${item1[0]} + '?activeTab=product-list'}"
+									class="btn btn-warning">Chi tiết</a></td>
+							</tr>
+						</th:block>
+					</tbody>
+
+				</table>
+				<div class="card-footer">
+					<div class="row">
+						<nav aria-label="">
+							<ul class="pagination justify-content-center mt-3">
+								<th:block th:if="${currentPage > 0}">
+									<li class="page-item"><a class="page-link"
+										th:href="@{/admin/order?pageNo=${currentPage - 1}&activeTab=product-edition}">Previous</a>
+									</li>
+								</th:block>
+								<th:block th:each="page : ${pageNumbers}">
+									<li class="page-item"
+										th:classappend="${page == currentPage ? 'active' : ''}"
+										aria-current="${page == currentPage ? 'page' : null}"><a
+										class="page-link"
+										th:href="@{/admin/order?pageNo=${page}&activeTab=product-edition}"
+										th:text="${page + 1}"></a></li>
+								</th:block>
+								<th:block th:if="${currentPage < totalPages - 1}">
+									<li class="page-item"><a class="page-link"
+										th:href="@{/admin/order?pageNo=${currentPage + 1}&activeTab=product-edition}">Next</a>
+									</li>
+								</th:block>
+							</ul>
+						</nav>
+					</div>
+				</div>
+			</div>
+
+			<div class="tab-pane fade"
+				th:classappend="${'product-list' == activeTab ? 'show active' : ''}"
+				id="product-list" role="tabpanel" aria-labelledby="product-list-tab">
+				<div class="tab-content mt-2">
+					<div class="row">
+						<!-- Form Section -->
+						<div class="col-lg-6">
+							<div class="row">
+								<div class="col-lg-6 mb-2">
+									<label for="exampleFormControlInput1" class="form-label mt-3">
+										<span style="font-weight: bold; font-size: 20px;">Ngày
+											đặt hàng:</span>
+									</label>
+									<th:block
+										th:if="${listOrderDetai != null and #lists.size(listOrderDetai) > 0 and listOrderDetai[0] != null}">
+										<label
+											th:text="${#dates.format(listOrderDetai[0], 'dd/MM/yyyy')}"></label>
+									</th:block>
+									<th:block
+										th:if="${listOrderDetai == null or #lists.size(listOrderDetai) <= 0 or listOrderDetai[0] == null}">
+										<label></label>
+									</th:block>
+								</div>
+								<div class="col-lg-6 mb-2">
+									<th:block
+										th:if="${listOrderDetai != null and #lists.size(listOrderDetai) > 1}">
+										<th:block
+											th:if="${#strings.toLowerCase(listOrderDetai[1]) == 'chờ xác nhận'}">
+											<div class="alert bg-info"
+												style="color: white; font-weight: bold;" role="alert">
+												Đơn hàng đang chờ xác nhận!</div>
+										</th:block>
+										<th:block
+											th:if="${#strings.toLowerCase(listOrderDetai[1]) == 'đang xử lý'}">
+											<div class="alert bg-info"
+												style="color: white; font-weight: bold;" role="alert">
+												Đơn hàng đang được xử lý!</div>
+										</th:block>
+										<th:block
+											th:if="${#strings.toLowerCase(listOrderDetai[1]) == 'đang vận chuyển'}">
+											<div class="alert bg-info"
+												style="color: white; font-weight: bold;" role="alert">
+												Đơn hàng đang được vận chuyển!</div>
+										</th:block>
+										<th:block
+											th:if="${#strings.toLowerCase(listOrderDetai[1]) == 'đã giao hàng'}">
+											<div class="alert bg-warning"
+												style="color: white; font-weight: bold;" role="alert">
+												Đơn hàng đã được giao thành công!</div>
+										</th:block>
+										<th:block
+											th:if="${#strings.toLowerCase(listOrderDetai[1]) == 'hoàn thành'}">
+											<div class="alert bg-success"
+												style="color: white; font-weight: bold;" role="alert">
+												Đơn hàng đã được hoàn thành!</div>
+										</th:block>
+										<th:block
+											th:if="${#strings.toLowerCase(listOrderDetai[1]) == 'đã hủy'}">
+											<div class="alert bg-danger"
+												style="color: white; font-weight: bold;" role="alert">
+												Đơn hàng đã bị hủy!</div>
+										</th:block>
+									</th:block>
+								</div>
+							</div>
+
+							<div class="mb-3">
+								<label for="exampleFormControlInput1" class="form-label">
+									<span style="font-weight: bold; font-size: 20px;">Người
+										đặt hàng:</span>
+								</label>
+								<th:block
+									th:if="${listOrderDetai != null and #lists.size(listOrderDetai) > 2 and listOrderDetai[2] != null}">
+									<label th:text="${listOrderDetai[2]}"></label>
+								</th:block>
+								<th:block
+									th:if="${listOrderDetai == null or #lists.size(listOrderDetai) <= 2 or listOrderDetai[2] == null}">
+									<label></label>
+								</th:block>
+							</div>
+
+							<div class="mb-3">
+								<label for="paymentMethod"
+									style="font-weight: bold; font-size: 20px;">Hình thức
+									thanh toán:</label>
+								<th:block
+									th:if="${listOrderDetai != null and #lists.size(listOrderDetai) > 3 and listOrderDetai[3] != null}">
+									<label th:text="${listOrderDetai[3]}"></label>
+								</th:block>
+								<th:block
+									th:if="${listOrderDetai == null or #lists.size(listOrderDetai) <= 3 or listOrderDetai[3] == null}">
+									<label></label>
+								</th:block>
+							</div>
+
+							<div class="mb-3">
+								<label for="exampleFormControlInput1" class="form-label">
+									<span style="font-weight: bold; font-size: 20px;">Địa
+										chỉ:</span>
+								</label>
+								<th:block
+									th:if="${listOrderDetai != null and #lists.size(listOrderDetai) > 4 and listOrderDetai[4] != null}">
+									<label th:text="${listOrderDetai[4]}"></label>
+								</th:block>
+								<th:block
+									th:if="${listOrderDetai == null or #lists.size(listOrderDetai) <= 4 or listOrderDetai[4] == null}">
+									<label></label>
+								</th:block>
+							</div>
+
+							<div class="mb-3">
+								<label for="exampleFormControlInput1" class="form-label">
+									<span style="font-weight: bold; font-size: 20px;">Số
+										điện thoại:</span>
+								</label>
+								<th:block
+									th:if="${listOrderDetai != null and #lists.size(listOrderDetai) > 5 and listOrderDetai[5] != null}">
+									<label th:text="${listOrderDetai[5]}"></label>
+								</th:block>
+								<th:block
+									th:if="${listOrderDetai == null or #lists.size(listOrderDetai) <= 5 or listOrderDetai[5] == null}">
+									<label></label>
+								</th:block>
+							</div>
+
+							<div class="mb-3">
+								<label for="exampleFormControlTextarea1" class="form-label">
+									<span style="font-weight: bold; font-size: 20px;">Ghi
+										chú:</span>
+								</label>
+								<textarea class="form-control" id="exampleFormControlTextarea1"
+									rows="3" readonly
+									th:text="${listOrderDetai != null and #lists.size(listOrderDetai) > 6 and listOrderDetai[6] != null ? listOrderDetai[6] : ''}">
+        </textarea>
+							</div>
+
+							<th:block
+								th:if="${listOrderDetai != null and #lists.size(listOrderDetai) > 9 and listOrderDetai[1] != null and #strings.toLowerCase(listOrderDetai[1]) == 'đã hủy'}">
+								<div class="mb-3">
+									<label for="exampleFormControlTextarea1" class="form-label">
+										<span style="font-weight: bold; font-size: 20px;">Lý do
+											hủy đơn:</span>
+									</label> <label style="font-weight: bold; font-size: 20px"
+										class="text-danger" th:text="${listOrderDetai[9]}"></label>
+								</div>
+							</th:block>
+
+							<label style="font-weight: bold; color: #ce0f0f; font-size: 20px">Tổng
+								tiền:</label>
+							<th:block
+								th:if="${listOrderDetai != null and #lists.size(listOrderDetai) > 7 and listOrderDetai[7] != null}">
+								<label style="font-weight: bold; font-size: 20px"
+									th:text="${listOrderDetai[7]}" class="price"></label>
+								<span style="font-weight: bold; font-size: 20px">đ</span>
+							</th:block>
+							<th:block
+								th:if="${listOrderDetai == null or #lists.size(listOrderDetai) <= 7 or listOrderDetai[7] == null}">
+								<label></label>
+							</th:block>
+						</div>
+
+
+						<!-- Table Section -->
+						<div class="col-lg-6">
+							<div class="card">
+								<div class="card-header"
+									style="font-weight: bold; font-size: 15px;">Danh sách sản
+									phẩm</div>
+								<table class="table ms-2">
+									<thead>
+										<tr>
+											<th>ID</th>
+											<th>Tên sản phẩm</th>
+											<th>Biến thể</th>
+											<th>Giá sản phẩm</th>
+											<th>Số lượng</th>
+										</tr>
+									</thead>
+									<tbody>
+										<th:block th:each="item : ${listProduct}">
+											<tr>
+												<td th:text="${item[0]}"></td>
+												<td class="ellipsis" th:text="${item[1]}"></td>
+												<td th:text="${item[2]} + '/' + ${item[3]}"></td>
+												<td th:text="${item[4]}" class="price"></td>
+												<td th:text="${item[5]}"></td>
+											</tr>
+										</th:block>
+									</tbody>
+								</table>
+							</div>
+						</div>
+					</div>
+				</div>
+
+
+			</div>
+		</div>
+	</div>
+
+	<!-- Modal -->
+	<div class="modal fade" id="cancelModal" tabindex="-1"
+		aria-labelledby="cancelModalLabel" aria-hidden="true">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title" id="cancelModalLabel">Lý do hủy đơn</h5>
+					<button type="button" class="btn-close" data-bs-dismiss="modal"
+						aria-label="Close"></button>
+				</div>
+				<div class="modal-body">
+					<form id="cancelForm" action="/admin/order/cancel" method="post">
+						<div class="mb-3">
+							<label for="reason" class="form-label">Lý do</label>
+							<textarea class="form-control" id="reason" name="reason" rows="3"
+								required></textarea>
+						</div>
+						<input type="hidden" id="orderId" name="orderId">
+					</form>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-secondary"
+						data-bs-dismiss="modal">Đóng</button>
+					<button type="submit" form="cancelForm" class="btn btn-danger">Hủy
+						đơn</button>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<script>
+    function confirmAction(url) {
+        Swal.fire({
+            title: "Bạn có chắc chắn muốn thực hiện hành động này?",
+            text: "Bạn sẽ không thể hoàn tác tác vụ đã thực hiện!",
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#3085d6",
+            cancelButtonColor: "#d33",
+            confirmButtonText: "Có, tôi đồng ý!",
+            cancelButtonText: "Hủy",
+        }).then((result) => {
+            if (result.isConfirmed) {
+                window.location.href = url;
+            }
+        });
+    }
+</script>
+
+	<script>
+	//hỏi khi hủy đơn hàng và nhập lý do hủy
+        function setOrderId(orderId) {
+            document.getElementById('orderId').value = orderId;
+        }
+        
+    </script>
+	<script>
+    document.querySelectorAll('.price').forEach(function(el) {
+        let number = el.textContent;
+        el.textContent = new Intl.NumberFormat('vi-VN').format(number);
+    });
+</script>
+</body>
+</html>

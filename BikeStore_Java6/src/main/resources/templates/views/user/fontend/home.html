@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" th:replace="~{/user/fontend/index :: dynamic(~{::body})}">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home</title>
+</head>
+<body>
+<main>
+    <div class="slider">
+        <div id="carouselExampleControls" class="carousel slide" data-bs-ride="carousel">
+            <div class="carousel-inner">
+                <div class="carousel-item active">
+                    <img src="https://bikeshopsaigon.com/uploads/files/banner/01%20copy.jpg" class="d-block w-100" alt="...">
+                </div>
+                <div class="carousel-item">
+                    <img src="https://bikeshopsaigon.com/uploads/files/banner/02%20copy.jpg" class="d-block w-100" alt="...">
+                </div>
+                <div class="carousel-item">
+                    <img src="https://bikeshopsaigon.com/uploads/files/banner/03%20copy.jpg" class="d-block w-100" alt="...">
+                </div>
+            </div>
+            <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="prev">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Previous</span>
+            </button>
+            <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="next">
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Next</span>
+            </button>
+        </div>
+    </div>
+    <div class="CardSlider">
+        <section>
+            <div class="row text-center mt-3">
+                <h3>Sản phẩm mới</h3>
+                <div class="line-box">
+                    <div class="line"></div>
+                </div>
+            </div>
+            <div class="container mt-3">
+                <div class="swiper-container">
+                    <div class="swiper mySwiper">
+                        <div class="swiper-wrapper">
+                            <th:block th:each="item : ${listnew.content}">
+                                <div class="swiper-slide">
+                                    <div class="card slider-item">
+                                        <a th:href="@{/product/detail/{id}(id=${item[0]})}" style="text-decoration: none; color: black">
+                                            <div class="">
+                                                <img th:src="@{/user/images/{image}(image=${item[5]})}" alt="Card Image" class="img-fluid fixed-ratio imgae-bicycle">
+                                            </div>
+                                            <h3 class="bicycle-name" th:text="${item[1]}"></h3>
+                                            <p class="text-danger fw-bold" style="font-size: 20px">
+                                             <span th:text="${item[9]}" class="price"></span>đ
+                                            </p>
+                                        </a>
+                                    </div>
+                                </div>
+                            </th:block>
+                        </div>
+                    </div>
+                    <div class="swiper-pagination"></div>
+                    <div class="swiper-button-prev"></div>
+                    <div class="swiper-button-next"></div>
+                    <div class="swiper-scrollbar"></div>
+                </div>
+            </div>
+        </section>
+    </div>
+    <div class="product mt-4">
+        <div class="row text-center mt-3">
+            <h3>SẢN PHẨM BÁN CHẠY</h3>
+            <div class="line-box">
+                <div class="line"></div>
+            </div>
+        </div>
+        <div class="row mt-3">
+            <th:block th:each="item : ${listItem.content}">
+                <div class="col-md-3 mb-3">
+                    <div class="card bicycle-product">
+                        <a th:href="@{/product/detail/{id}(id=${item[0]})}" style="text-decoration: none; color: black">
+                            <input type="hidden" th:value="${item[10]}">
+                            <div class="card border border-0">
+                                <img th:src="@{/user/images/{image}(image=${item[5]})}" class="card-img-top pt-3 mb-1 px-4 imgae-bicycle img-fluid fixed-ratio" alt="...">
+                            </div>
+                            <div class="card-body">
+                                <button type="button" class="btn px-1 py-0 fw-medium text-secondary-emphasis mb-2 mx-2 button-type" style="font-size: 14px; border-radius: 0px; background-color: #dedede; color: #6c757d; font-weight: bold; border-radius: 2px;">
+                                    <span th:text="${item[11]}"></span>
+                                </button>
+                                <p style="font-weight: 500;" class="card-text fw-medium fs-6 bicycle-name mx-1 name-bicycle" th:text="${item[1]}"></p>
+                                <hr />
+                                <p class="mx-1 my-0 text-danger fw-medium" style="font-size: 17px;">
+                                   <span th:text="${item[9]}" class="price"></span>đ
+                                </p>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+            </th:block>
+        </div>
+    </div>
+    <section>
+        <div class="row text-center mt-4">
+            <h3>SẢN PHẨM XE ĐẠP</h3>
+            <div class="line-box">
+                <div class="line"></div>
+            </div>
+        </div>
+        <div class="row mt-3">
+            <div class="col-lg-3">
+                <a href="/home/products?idcty=7" style="text-decoration: none; color: black">
+                    <div class="image-box">
+                        <img src="https://bikeshopsaigon.com/uploads/files/banner/domane/357450622_660002826148073_6272561996154329821_n.jpg" alt="Your Image" class="img-fluid" style="height: 30vh">
+                        <div class="image-mask"></div>
+                        <div class="image-title">
+                            <h2>TREK BIKE</h2>
+                        </div>
+                    </div>
+                </a>
+            </div>
+            <div class="col-lg-3">
+                <a href="/home/products?idcty=9" style="text-decoration: none; color: black">
+                    <div class="image-box">
+                        <img src="https://bikeshopsaigon.com/uploads/files/banner/domane/__thumbs/334686870_229428076138821_6551316148583333927_n.jpg/334686870_229428076138821_6551316148583333927_n__600x400.jpg" alt="Your Image" class="img-fluid" style="height: 30vh">
+                        <div class="image-mask"></div>
+                        <div class="image-title">
+                            <h2>ROAD BIKE</h2>
+                        </div>
+                    </div>
+                </a>
+            </div>
+            <div class="col-lg-3">
+                <a href="/home/products?idcty=11" style="text-decoration: none; color: black">
+                    <div class="image-box">
+                        <img src="https://bikeshopsaigon.com/uploads/images/products-images/MadoneSLR7_23_37025_E_Primary.jpg" alt="Your Image" class="img-fluid" style="height: 30vh">
+                        <div class="image-mask"></div>
+                        <div class="image-title">
+                            <h2>CITY BIKE</h2>
+                        </div>
+                    </div>
+                </a>
+            </div>
+            <div class="col-lg-3">
+                <a href="/home/products?idcty=12" style="text-decoration: none; color: black">
+                    <div class="image-box">
+                        <img src="https://bikeshopsaigon.com/uploads/images/products-images/Screenshot_2022-08-02_184738.png" alt="Your Image" class="img-fluid" style="height: 30vh">
+                        <div class="image-mask"></div>
+                        <div class="image-title">
+                            <h2>MINI BIKE</h2>
+                        </div>
+                    </div>
+                </a>
+            </div>
+        </div>
+        <div class="row mt-3">
+            <div class="col-lg-6">
+                <a href="/home/products?idcty=8" style="text-decoration: none; color: black">
+                    <div class="image-box">
+                        <img src="https://bikeshopsaigon.com/uploads/images/04%20-%20Chi%20ti%CC%81ch%20ha%CC%80ng%20-%20Trang%20chu%20-%20hinh%20nho%20(1).jpg" alt="Your Image" class="img-fluid" style="height: 50vh">
+                        <div class="image-mask"></div>
+                        <div class="image-title">
+                            <h2>OUTDOOR BIKE</h2>
+                        </div>
+                    </div>
+                </a>
+            </div>
+            <div class="col-lg-6">
+                <a href="/home/products?idcty=10" style="text-decoration: none; color: black">
+                    <div class="image-box">
+                        <img src="https://bikeshopsaigon.com/uploads/files/banner/domane/__thumbs/343838067_132663443269519_4147483797268091053_n.jpg/343838067_132663443269519_4147483797268091053_n__600x400.jpg" alt="Your Image" class="img-fluid" style="height: 50vh">
+                        <div class="image-mask"></div>
+                        <div class="image-title">
+                            <h2>FOLDING BIKE</h2>
+                        </div>
+                    </div>
+                </a>
+            </div>
+        </div>
+    </section>
+</main>
+
+<script>
+    var swiper = new Swiper(".mySwiper", {
+        slidesPerView: 4,
+        spaceBetween: 10,
+        navigation: {
+            nextEl: ".swiper-button-next",
+            prevEl: ".swiper-button-prev",
+        },
+        pagination: {
+            el: ".swiper-pagination",
+            clickable: true,
+        },
+        scrollbar: {
+            el: ".swiper-scrollbar",
+        },
+    });
+</script>
+<script>
+    document.querySelectorAll('.price').forEach(function(el) {
+        let number = el.textContent;
+        el.textContent = new Intl.NumberFormat('vi-VN').format(number);
+    });
+</script>
+</body>
+</html>

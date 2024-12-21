@@ -1,0 +1,118 @@
+.item-small img {
+	width: 100px;
+	border: 1px solid gainsboro;
+	padding: 2px;
+}
+
+.row-item {
+	border: 1px solid black;
+	width: 100%;
+	padding: 5px;
+}
+
+.box-product-detail img {
+	width: 100%;
+}
+
+.title-product-detail {
+	font-size: x-large;
+}
+
+.color-text {
+	color: #e95211;
+	text-decoration: none;
+}
+
+.price-product {
+	font-size: x-large;
+	color: #e95211;
+	font-weight: 800;
+}
+
+.old-price {
+	color: gainsboro;
+	text-decoration: none;
+}
+
+.text-delete {
+	text-decoration: line-through;
+	color: gainsboro;
+}
+
+
+
+.circle-btn {
+	border-radius: 50%;
+}
+
+.number-item {
+	background-color: none;
+	border: 1px solid #e95211;
+	color: #e95211;
+	border-radius: 5%;
+	padding-left: 40px;
+	padding-right: 40px;
+	padding-top: 5px;
+	padding-bottom: 5px;
+}
+
+.list-group-color {
+	background-color: #e95211;
+	color: white;
+	border-bottom: 1px solid white;
+}
+
+.card-header-color {
+	background-color: white;
+	color: #e95211;
+	border-bottom: 1px dashed #e95211;
+}
+
+.card-border {
+	border: 1px dashed #e95211;
+}
+
+.card-color {
+	cursor: pointer;
+	border: 1px solid gray;
+	transition: border-color 0.3s;
+}
+
+.card-color.selected {
+	border-color: orange;
+}
+
+.card-size {
+	cursor: pointer;
+	border: 1px solid gray;
+	transition: border-color 0.3s;
+}
+
+.card-size.selected {
+	border-color: orange;
+}
+
+.btn-addCart2 {
+	background-color: rgb(255, 173, 91);
+	color: white;
+	border: 1px solid #e95211;
+}
+
+.btn-product {
+	background-color: #e95211;
+	color: white;
+	border: 1px solid #e95211;
+}
+
+.btn-product:hover {
+	background-color: white;
+	color: #e95211;
+	border: 1px solid #e95211;
+}
+
+.btn-addCart2:hover {
+	background-color: white;
+	color: #e95211;
+	border: 1px solid #e95211;
+}
+

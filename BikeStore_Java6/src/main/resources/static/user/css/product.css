@@ -1,0 +1,41 @@
+.bicycle-name {
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    height: 3em; /* Điều chỉnh chiều cao dựa trên kích thước font và chiều cao dòng */
+    line-height: 1.5em; /* Đặt chiều cao dòng để quản lý khoảng cách giữa các dòng */
+}
+
+.button-type:hover{
+    color: black !important;
+    background-color: orange !important;
+    transition: all 0.3s;
+}
+
+
+
+.name-bicycle:hover{
+    color: orange;
+    transition: all 0.3s;
+}
+
+.imgae-bicycle:hover{
+    scale: 1.1;
+    transition: all 0.5s;
+}
+
+.imgae-bicycle{
+    transition: all 0.3s;
+}
+
+.bicycle-product:hover{
+    box-shadow: rgba(0, 0, 0, 0.2) 0px 6px 18px;
+}
+
+.fixed-ratio {
+    height: 200px;
+    object-fit: cover;
+    width: 100%;
+}
